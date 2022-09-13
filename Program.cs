@@ -40,79 +40,73 @@
 // 5 9 2 3
 // 8 4 2 4
 
-int GetDigitCondition(string message)
-{
-    Console.WriteLine(message);
-    int colum = int.Parse(Console.ReadLine()!);
-    while (colum < 0)
-    {
-        Console.Write("Некорректная цифра введите новое число: ");
-        int temp = int.Parse(Console.ReadLine()!);
-        colum = temp;
-    }
-    return colum;
-}
+// int GetDigitCondition(string message)
+// {
+//     Console.WriteLine(message);
+//     int colum = int.Parse(Console.ReadLine()!);
+//     while (colum < 0)
+//     {
+//         Console.Write("Некорректная цифра введите новое число: ");
+//         int temp = int.Parse(Console.ReadLine()!);
+//         colum = temp;
+//     }
+//     return colum;
+// }
 
-int GetDigit(string message)
-{
-    Console.WriteLine(message);
-    int start = int.Parse(Console.ReadLine()!);
-    return start;
-}
-double [,] CreateMultiDouble(int minNum, int maxNum)
-{
-    double [,] multi = new double[10 ,10];
-    for (int i = 0; i < multi.GetLength(0); i++)
-    {
-        for (int j = 0; j < multi.GetLength(1); j++)
-        {
-            Random digit = new Random();
-            multi[i,j] = digit.NextDouble()*(maxNum - minNum) + minNum;
-        }
-    }
-    return multi;
-}
+// int GetDigit(string message)
+// {
+//     Console.WriteLine(message);
+//     int start = int.Parse(Console.ReadLine()!);
+//     return start;
+// }
+// double [,] CreateMultiDouble(int minNum, int maxNum)
+// {
+//     double [,] multi = new double[10 ,10];
+//     for (int i = 0; i < multi.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < multi.GetLength(1); j++)
+//         {
+//             Random digit = new Random();
+//             multi[i,j] = digit.NextDouble()*(maxNum - minNum) + minNum;
+//         }
+//     }
+//     return multi;
+// }
 
-void PrintMultiDouble (double [,] multi)
-{
-    for (int i = 0; i < multi.GetLength(0); i++)
-    {
-        for (int j = 0; j < multi.GetLength(1); j++)
-        {
-            if(multi[i,j] == Math.Round(multi[i,j]))
-            {
-                Console.Write($"{multi[i, j]}\t ");
-            }
-            else
-            {
-                Console.Write($"{multi[i, j]:F2}\t ");
-            }
-        }
-        Console.WriteLine();
-    }
-}
+// void PrintMultiDouble (double [,] multi)
+// {
+//     for (int i = 0; i < multi.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < multi.GetLength(1); j++)
+//         {
+//             if(multi[i,j] == Math.Round(multi[i,j]))
+//             {
+//                 Console.Write($"{multi[i, j]}\t ");
+//             }
+//             else
+//             {
+//                 Console.Write($"{multi[i, j]:F2}\t ");
+//             }
+//         }
+//         Console.WriteLine();
+//     }
+// }
 
-void FindValue (double [,] multi , int row , int colum)
-{
-    try
-    {
-        Console.WriteLine($"ячейка [{row}], [{colum}] содержит значение: {multi[row,colum]}");
-    }
-    catch 
-    {
-        Console.Write("в массиве нет такой позиции");   
-    }
-}
+// void FindValue (double [,] multi , int row , int colum)
+// {
+//     try
+//     {
+//         Console.WriteLine($"ячейка [{row}], [{colum}] содержит значение: {multi[row,colum]}");
+//     }
+//     catch 
+//     {
+//         Console.Write("в массиве нет такой позиции");   
+//     }
+// }
 
-double[,] matrix = CreateMultiDouble(GetDigit("Ввод числавого диопазона  : "), GetDigit("Ввод числового окончания" ));
-PrintMultiDouble(matrix);
-FindValue(matrix, GetDigitCondition("Введите значение строки для поиска в массиве") , GetDigitCondition("Введите значение столбца для поиска в массиве"));
-
-
-
-
-
-
+// double[,] matrix = CreateMultiDouble(GetDigit("Ввод числавого диопазона  : "), GetDigit("Ввод числового окончания" ));
+// PrintMultiDouble(matrix);
+// FindValue(matrix, GetDigitCondition("Введите значение строки для поиска в массиве") , GetDigitCondition("Введите значение столбца для поиска в массиве"));
 
 
 
@@ -125,3 +119,42 @@ FindValue(matrix, GetDigitCondition("Введите значение строк�
 // 5 9 2 3
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+
+
+void NewRandomMatrix (int[,] matr)
+{
+    System.Console.WriteLine();
+    Random rand = new Random();
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr.GetLength(1); j++)
+        {
+            matr[i, j] = rand.Next(1, 15);
+            Console.Write($"{matr[i, j]}\t");
+        }
+        Console.WriteLine();
+    }
+    System.Console.WriteLine();
+}    
+
+int GetMidMath (int[,] matr)
+{
+    int column = 0;
+    int sum = 0;
+    double midMath = 0;
+    while (column < matr.GetLength(1))
+    {
+        for (int i = 0; i < matr.GetLength(0); i++)
+        {
+            sum += matr[i, column];
+        }
+        midMath = (double) sum / matr.GetLength(0);
+        System.Console.WriteLine($"The {column +1} column arifmetic mean = {midMath.ToString("F1")}");
+        column += 1;
+        sum = 0;
+    }   return sum;
+}
+int[,] matrix = new int[9, 5];
+
+NewRandomMatrix(matrix);
+GetMidMath(matrix);
